@@ -1,58 +1,30 @@
-//import { Component } from 'react';
-
-import Add from "./components/Add";
-import Greetings from "./components/Greetings";
-
-//To show the component
-// class App extends Component{
-//     render () {
-//     return <h1>Welcome to React component</h1>
-//     }
-// }
-
-// function App() {
-//   return (
-//     <h1>Welcome to React Function</h1>
-//   );
-// }
-
-// function App() {
-//     return (
-//         <section>
-//             <h1> Hello my name is Djalma</h1>
-//             <p>This some content :)</p>
-//         </section>
-//     );
-// }
-
-// function App() {
-//     return (
-//         <form>
-//             <input type="text" name="input" placeholder="Enter your name"/>
-//         </form>
-//     );
-// }
-
-// function App() {
-//   return (
-//     <div>
-//       <section>Section Tag</section>
-//       <article>Section Article</article>
-//       <h1 className="title-class">Title</h1>
-//       <label htmlFor="name">Name</label>
-//       <input type="text" id="name" />
-//     </div>
-//   );
-
-// function App() {
-//   return <Add/>;
-// }
+import { useState } from "react";
 
 function App() {
+  const [movies, setMovies] = useState([
+    { id: 1, title: "Spiderman", ratings: 3 },
+    { id: 2, title: "Superman", ratings: 3 },
+    { id: 3, title: "Thor", ratings: 3 },
+  ]);
+
+  const handleClick = () => {
+    setMovies(
+      movies.map((m) => (m.id === 1 ? { ...movies, title: "John Wick 4" } : m))
+    );
+  };
+
   return (
     <>
-      <Greetings />
-      <Add />
+      {movies.map((movie) => (
+        <li key={Math.random()}>{movie.title}</li>
+      ))}
+      <button
+        type="button"
+        onClick={handleClick}
+        className="text-white bg-blue-500 font-medium rounded-lg px-5 py-2.5 text-center ml-2 mt-2 mr-2 mb-2"
+      >
+        Change Name
+      </button>
     </>
   );
 }
