@@ -12,11 +12,11 @@ function App() {
       movies.map((m) => (m.id === 1 ? { ...movies, title: "John Wick 4" } : m))
     );
   };
-
+//self-center text-9xl font-semibold whitespace-nowrap
   return (
     <>
       {movies.map((movie) => (
-        <li key={Math.random()}>{movie.title}</li>
+        <li key={Math.random()} className="text-3xl font-semibold">{movie.title}</li>
       ))}
       <button
         type="button"
