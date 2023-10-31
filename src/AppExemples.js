@@ -5,7 +5,7 @@ function App() {
   // Example #1
   const number = [1, 2, 3, 4, 5];
   
-  // Example #2
+  // Example #2-------------------------------------------------------------------------------------------
   const userInfo = [
     {
       username: "user1",
@@ -50,7 +50,7 @@ function App() {
   );
 }
 
-//Example 3
+//Example 3-------------------------------------------------------------------------------------------
 import User from "./components/User";
 
 function App() {
@@ -72,7 +72,7 @@ function App() {
     </>
   );
 }
-//Example 4
+//Example 4-------------------------------------------------------------------------------------------
 const ValidPassword = () => <h1>Valid Password</h1>;
 const InvalidPassword = () => <h1>Invalid Password</h1>;
 
@@ -93,7 +93,7 @@ function App() {
   );
 }
 
-//example 5
+//example 5-------------------------------------------------------------------------------------------
 const Cart = () => {
   const items = ["Wireless Eardbuds", "Power Bank", "New SSD", "Hoodies"];
 
@@ -118,7 +118,7 @@ function App() {
   );
 }
 
-//example 6
+//example 6-------------------------------------------------------------------------------------------
 import { BsFillCartCheckFill, BsGithub } from "react-icons/bs";
 function App() {
   return (
@@ -129,7 +129,7 @@ function App() {
   );
 }
 
-//example 7
+//example 7-------------------------------------------------------------------------------------------
 
 const Button = () => {
   const handleClick = (a, b) => {
@@ -148,7 +148,7 @@ function App() {
   );
 }
 
-//example 8
+//example 8-------------------------------------------------------------------------------------------
 const Copy = () => {
   const copyHandler = () => {
     alert('Stop Stealing My Context');
@@ -192,7 +192,7 @@ const Move = () => {
   );
 };
 
-//example 10
+//example 10-------------------------------------------------------------------------------------------
 import { useState } from "react";
 
 const Counter = () => {
@@ -229,7 +229,7 @@ function App() {
   );
 }
 
-//examplle 11
+//examplle 11-------------------------------------------------------------------------------------------
 import { useState } from "react";
 
 function App() {
@@ -289,7 +289,7 @@ function App() {
   );
 }
 
-//example 12
+//example 12-------------------------------------------------------------------------------------------
 import { useState } from "react";
 
 function App() {
@@ -326,7 +326,7 @@ function App() {
   );
 }
 
-//example 13
+//example 13-------------------------------------------------------------------------------------------
 import { useState } from "react";
 
 function App() {
@@ -358,7 +358,7 @@ function App() {
   );
 }
 
-//example 14
+//example 14-------------------------------------------------------------------------------------------
 import { useState } from "react";
 
 function App() {
@@ -392,7 +392,7 @@ const handleSubmit =(event) => {
   );
 }
 
-//example 15
+//example 15-------------------------------------------------------------------------------------------
 import { useEffect, useState } from "react";
 
 function App() {
@@ -431,7 +431,7 @@ function App() {
   );
 }
 
-//example 16
+//example 16-------------------------------------------------------------------------------------------
 import { useEffect, useState } from "react";
 
 function App() {
@@ -462,18 +462,264 @@ function App() {
   </>;
 }
 
+//example 17-------------------------------------------------------------------------------------------
+
+import ComponentA from './components/ComponentA';
+function App() {
+  const name = "Djalma Feitosa";
+  return (
+    <>
+      <ComponentA name={name} />
+    </>
+  );
+}
+
+import ComponentB from "./ComponentB";
+
+const ComponentA = ({ name }) => {
+  return (
+    <>
+      <ComponentB name={name} />
+    </>
+  );
+};
+
+export default ComponentA;
+
+import ComponentC from "./ComponentC";
+
+const ComponentB = ({ name }) => {
+  return (
+    <>
+      <ComponentC name={name} />
+    </>
+  );
+};
+
+export default ComponentB;
+
+const ComponentC = ({name}) => {
+  return (
+    <div>This data is coming from ComponentA: {name}</div>
+  )
+}
+
+export default ComponentC;
+
+//example 18-------------------------------------------------------------------------------------------
+//1. Import createContext
+import { createContext } from "react";
+import ComponentC from "./components/ComponentC";
+
+//2. Creating instance of creatContext
+export const Data = createContext();
+export const Data1 = createContext();
+
+function App() {
+  const name = "Djalma Feitosa";
+  const age = 57;
+
+  return (
+    //3. Wrap our component into Provider Component
+    <>
+      <Data.Provider value={name}>
+        <Data1.Provider value={age}>
+          <ComponentC />
+        </Data1.Provider>
+      </Data.Provider>
+    </>
+  );
+}
+
+import { Data, Data1 } from "../App";
+
+const ComponentC = () => {
+  return (
+    <>
+      <Data.Consumer>
+        {(name) => {
+          //return <h1>My name is: {name}</h1>;
+          return (
+            <Data1.Consumer>
+              {(age) => {
+                return (
+                  <h1>
+                    My name is: {name} & I'm {age} years old
+                  </h1>
+                );
+              }}
+            </Data1.Consumer>
+          );
+        }}
+      </Data.Consumer>
+    </>
+  );
+};
 
 
+//example 19-------------------------------------------------------------------------------------------
+//1. Import createContext
+import { createContext } from "react";
+import ComponentC from "./components/ComponentC";
 
+export const Data = createContext();
+export const Data1 = createContext();
 
+function App() {
+  const name = "Djalma Feitosa";
+  const age = 57;
 
+  return (
+    //3. Wrap our component into Provider Component
+    <>
+      <Data.Provider value={name}>
+        <Data1.Provider value={age}>
+          <ComponentC />
+        </Data1.Provider>
+      </Data.Provider>
+    </>
+  );
+}
+import { useContext } from "react";
+import { Data, Data1 } from "../App";
 
+const ComponentC = () => {
+  const name = useContext(Data);
+  const age = useContext(Data1);
+  return (
+    <>
+      <h1>
+        My name is: {name} & I'm {age} years old
+      </h1>
+    </>
+  );
+};
 
+//example 20-------------------------------------------------------------------------------------------
 
+import { useReducer } from "react";
 
+// state:
+// dispatch: [value, setValue]
 
+// reducer: custom state logic
+// initialState: {}
 
+function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
+  return (
+    <>
+      <h1 className="text-4xl">{state.count}</h1>
+      <button
+        type="button"
+        onClick={() => dispatch({ type: "increment" })}
+        className="text-white bg-blue-500 font-medium rounded-lg px-5 py-2.5 text-center ml-2 mt-2 mr-2 mb-2"
+      >
+        +
+      </button>
+      <button
+        type="button"
+        onClick={() => dispatch({ type: "decrement" })}
+        className="text-white bg-red-500 font-medium rounded-lg px-5 py-2.5 text-center ml-2 mt-2 mr-2 mb-2"
+      >
+        -
+      </button>
+      <button
+        type="button"
+        onClick={() => dispatch({ type: "reset" })}
+        className="text-white bg-green-500 font-medium rounded-lg px-5 py-2.5 text-center ml-2 mt-2 mr-2 mb-2"
+      >
+        Reset
+      </button>
+    </>
+  );
+}
+
+const initialState = { count: 0 };
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "increment":
+      return {
+        ...state,
+        count: state.count + 1,
+      };
+    case "decrement":
+      return {
+        ...state,
+        count: state.count - 1,
+      };
+    case "reset":
+      return {
+        ...state,
+        count: 0,
+      };
+    default:
+      return state;
+  }
+};
+
+//example 21-------------------------------------------------------------------------------------------
+
+import { useRef } from "react";
+
+function App() {
+  const inputElement = useRef(null);
+
+  const focusInput = () => {
+    inputElement.current.focus();
+    inputElement.current.value = "Djalma";
+  };
+
+  return (
+    <>
+      <input
+        type="text"
+        ref={inputElement}
+        className="text-4xl font-thin text-gray-900 dark:text-red"
+      />
+      <button
+        type="button"
+        onClick={() => focusInput()}
+        className="text-white bg-blue-500 font-medium rounded-lg px-5 py-2.5 text-center ml-2 mt-2 mr-2 mb-2"
+      >
+        Focus & Write Djalma
+      </button>
+    </>
+  );
+}
+
+//example 22-------------------------------------------------------------------------------------------
+
+import useFetch from "./fetch/useFetch";
+
+function App() {
+  const [data] = useFetch("https://jsonplaceholder.typicode.com/todos");
+  return (
+    <>
+      {data &&
+        data.map((item) => {
+          return <p key={item.id}>{item.title}</p>;
+        })}
+    </>
+  );
+}
+
+import { useState, useEffect } from "react";
+
+const useFetch = (url) => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(url)
+      .then((r) => r.json())
+      .then((d) => setData(d));
+  },[url]);
+
+  return [data];
+};
+//example 23-------------------------------------------------------------------------------------------
 
 
 

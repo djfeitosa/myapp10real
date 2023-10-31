@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import Todo from './Todo';
 
 function App() {
- 
-  return <>
-  
-  
-  </>;
+  return (
+    <>
+    <Todo />
+    </>
+  );
 }
 
 export default App;
