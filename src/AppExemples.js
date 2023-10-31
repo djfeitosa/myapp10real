@@ -326,5 +326,155 @@ function App() {
   );
 }
 
+//example 13
+import { useState } from "react";
+
+function App() {
+  const [movies, setMovies] = useState([
+    { id: 1, title: "Spiderman", ratings: 3 },
+    { id: 2, title: "Superman", ratings: 3 },
+    { id: 3, title: "Thor", ratings: 3 },
+  ]);
+
+  const handleClick = () => {
+    setMovies(
+      movies.map((m) => (m.id === 1 ? { ...movies, title: "John Wick 4" } : m))
+    );
+  };
+//self-center text-9xl font-semibold whitespace-nowrap
+  return (
+    <>
+      {movies.map((movie) => (
+        <li key={Math.random()} className="text-3xl font-semibold">{movie.title}</li>
+      ))}
+      <button
+        type="button"
+        onClick={handleClick}
+        className="text-white bg-blue-500 font-medium rounded-lg px-5 py-2.5 text-center ml-2 mt-2 mr-2 mb-2"
+      >
+        Change Name
+      </button>
+    </>
+  );
+}
+
+//example 14
+import { useState } from "react";
+
+function App() {
+
+const [userName, setUserName] = useState("")
+
+const handleChange =(event) => {
+  setUserName(event.target.value);
+}
+const handleSubmit =(event) => {
+  event.preventDefault();
+  alert(`You typed: ${userName}`);
+  setUserName("");
+}
+
+
+  return (
+    <>
+    <h1>Form Demo</h1>
+    <form onSubmit={handleSubmit}>
+      <input type="text" value={userName} onChange={handleChange}/>
+      <button
+        type="button"
+        onClick={handleSubmit}
+        className="text-white bg-blue-500 font-medium rounded-lg px-5 py-2.5 text-center ml-2 mt-2 mr-2 mb-2"
+      >
+        Submit
+      </button>
+    </form>
+    </>
+  );
+}
+
+//example 15
+import { useEffect, useState } from "react";
+
+function App() {
+  const [value, setValue] = useState(0);
+
+  //1. Render for the first time
+  //2. Any time we do (side effect)
+  //3. Dependency list
+
+  // useEffect(() => {
+  //   if (value > 0) {
+  //     console.log("Hello");
+  //     document.title = `Increment (${value})`;
+  //   }
+  // });
+
+  useEffect(() => {
+    if (value > 0) {
+      console.log("Hello");
+      document.title = `Increment (${value})`;
+    }
+  }, [value]);
+
+  return (
+    <>
+      <h1>{value}</h1>
+
+      <button
+        type="button"
+        onClick={() => setValue(value + 1)}
+        className="text-white bg-blue-500 font-medium rounded-lg px-5 py-2.5 text-center ml-2 mt-2 mr-2 mb-2"
+      >
+        Click me
+      </button>
+    </>
+  );
+}
+
+//example 16
+import { useEffect, useState } from "react";
+
+function App() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
+      const data = await response.json();
+      if (data && data.length) {
+        setData(data);
+      }
+      else alert(data);
+    }
+    getData();
+  }, []);
+
+  return <>
+  <ul>
+    {data.map((item) => (
+      <li key={Math.random()}>{item.title}</li>
+    ))}
+  </ul>
+  
+  
+  </>;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default App;
