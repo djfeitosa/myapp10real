@@ -721,6 +721,102 @@ const useFetch = (url) => {
 };
 //example 23-------------------------------------------------------------------------------------------
 
+import { useState } from "react";
+import "./style.css";
+
+function generateId() {
+  return Math.floor(Math.random() * 100);
+}
+
+function Todo() {
+  const [todos, setTodos] = useState([]);
+  const [input, setInput] = useState("");
+
+  const handleSubmit = () => {
+    setTodos((todos) =>
+      todos.concat({
+        text: input,
+        id: generateId(),
+      })
+    );
+    setInput("");
+  };
+
+  const removeTodo = (id) =>
+    setTodos((todos) => todos.filter((t) => t.id !== id));
+
+  return (
+    <>
+      <div className="container">
+        <input
+          type="text"
+          value={input}
+          placeholder="New Todo"
+          onChange={(e) => setInput(e.target.value)}
+        />
+        <button type="button" onClick={handleSubmit}>
+          Submit
+        </button>
+        <ul className="todo-list">
+          {todos.map(({ text, id }) => (
+            <li key={id} className="todo">
+              <span>{text}</span>
+              <button
+                type="button"
+                className="close"
+                onClick={() => removeTodo(id)}
+              >
+                X
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+}
+
+export default Todo;
+
+//example 24-------------------------------------------------------------------------------------------
+import { useState, useEffect } from "react";
+import axios from "axios";
+import "./style.css";
+
+function Main() {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood")
+      .then((res) => {
+        console.log(res.data);
+        setItems(res.data.meals);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const itemList = items.map(({strMeal, strMealThumb, idMeal}) => {
+    return (
+     <section className="card">
+      <img src={strMealThumb}/>
+      <section className="content">
+        <p>{strMeal}</p>
+        <p>#{idMeal}</p>
+      </section>
+     </section> 
+    )
+  });
+
+  return <div className="items-container">
+    {itemList};
+  </div>
+}
+
+
+//example 25-------------------------------------------------------------------------------------------
 
 
 export default App;

@@ -1,9 +1,9 @@
-import Todo from './Todo';
+import ToggleButtonColor from './ToggleButtonColor/ToggleButtonColor';
 
 function App() {
   return (
     <>
-    <Todo />
+    <ToggleButtonColor />
     </>
   );
 }
